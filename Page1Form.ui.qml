@@ -1,24 +1,151 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.2
 
 Item {
-    property alias textField1: textField1
-    property alias button1: button1
+    width: 1120
+    height: 720
+    property alias listView: listView
+    visible: true
+    Rectangle {
+        width: parent.width
+        height: parent.height
+        color: "#1b1b1b"
 
-    RowLayout {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 20
-        anchors.top: parent.top
+        ListView {
+            id: listView
+            x: 23
+            y: 138
+            width: 1044
+            height: 280
+            orientation: ListView.Horizontal
+            clip: true
+            spacing: 80
 
-        TextField {
-            id: textField1
-            placeholderText: qsTr("Text Field")
+            model: ListModel {
+                ListElement {
+                    name: "Grey"
+                    setValue: 34
+                }
+
+                ListElement {
+                    name: "Red"
+                    setValue: 20
+                }
+
+                ListElement {
+                    name: "Blue"
+                    setValue: -15
+                }
+
+                ListElement {
+                    name: "Green"
+                    setValue: 10
+                }
+
+                ListElement {
+                    name: "Grey"
+                    setValue: 34
+                }
+
+                ListElement {
+                    name: "Red"
+                    setValue: 20
+                }
+
+                ListElement {
+                    name: "Blue"
+                    setValue: -15
+                }
+
+                ListElement {
+                    name: "Green"
+                    setValue: 10
+                }
+
+                ListElement {
+                    name: "Grey"
+                    setValue: 34
+                }
+
+                ListElement {
+                    name: "Red"
+                    setValue: 20
+                }
+
+                ListElement {
+                    name: "Blue"
+                    setValue: -15
+                }
+
+                ListElement {
+                    name: "Green"
+                    setValue: 10
+                }
+
+                ListElement {
+                    name: "Grey"
+                    setValue: 34
+                }
+
+                ListElement {
+                    name: "Red"
+                    setValue: 20
+                }
+
+                ListElement {
+                    name: "Blue"
+                    setValue: -15
+                }
+
+                ListElement {
+                    name: "Green"
+                    setValue: 10
+                }
+
+                ListElement {
+                    name: "Green"
+                    setValue: 10
+                }
+
+                ListElement {
+                    name: "Grey"
+                    setValue: 34
+                }
+
+                ListElement {
+                    name: "Red"
+                    setValue: 20
+                }
+
+                ListElement {
+                    name: "Blue"
+                    setValue: -15
+                }
+
+                ListElement {
+                    name: "Green"
+                    setValue: 10
+                }
+            }
+
+            delegate:
+                VerticalIndicator {
+                value: setValue
+                label: name
+                valueStr: setValue
+            }
         }
 
-        Button {
-            id: button1
-            text: qsTr("Press Me")
+        Label {
+            id: label
+            x: 23
+            y: 39
+            text: qsTr("Temperatures")
+            font.bold: true
+            font.pointSize: 21
         }
     }
+
 }
