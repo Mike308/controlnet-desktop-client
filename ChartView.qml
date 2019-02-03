@@ -23,13 +23,14 @@ ChartViewForm {
             var slotNames = temperaturesJSONObject.map(getSlotNames)
             var distinctSlotNames = slotNames.filter(distinct)
               .forEach(setSeries)
-            chartView.axisX().max = (new Date(temperaturesJSONObject[221].date))
+            chartView.axisX().max = (new Date(temperaturesJSONObject[temperaturesJSONObject.length - 1].date))
             chartView.axisX().min = (new Date(temperaturesJSONObject[0].date))
-            chartView.axisY().max = 25
-
+            var temperatures = temperaturesJSONObject.map(getTemperatures)
+            chartView.axisY().max = temperatures.sort()[temperatures.length - 1]
             temperaturesJSONObject.forEach(setValues)
         }
     }
+
 
     function parseTest(item, index){
         var slotNames = []
@@ -45,15 +46,16 @@ ChartViewForm {
     }
 
     function setSeries(item, index){
-        //chartView.createSeries(ChartView.SeriesTypeSpline, item, xDateAxis)
         chartView.createSeries(ChartView.SeriesTypeSpline, item, xDateAxis)
     }
 
     function setValues(item, index){
         var series = chartView.series(item.slotName)
-        console.log("Date: "+item.date)
         chartView.series(item.slotName).append(toMsecsSinceEpoch(new Date(item.date)), item.temperature)
-        console.log('Index: '+index)
+    }
+
+    function getTemperatures(item){
+        return item.temperature
     }
 
     function toMsecsSinceEpoch(date) {
