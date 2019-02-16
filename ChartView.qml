@@ -4,22 +4,22 @@ import QtCharts 2.3
 
 ChartViewForm {
     button.onClicked: {
-        controller.passQMLFile("qrc:/Page1.qml")
+
     }
 
     Connections {
         target: controller
         onPassedDataToChartView: {
-            console.log("Sensor type: " + sensorType + "measurement type: "+measurementType + " start date: "+startDate)
-            controlnetApi.getTemperaturesBySensorTypeAndDate(sensorType, startDate, endDate)
+            console.log('ModuleId: '+moduleId + ' start: ' + startDate + ' endDate: ' + endDate)
+            controlnetApi.getTemperaturesByModuleIdAndDate(moduleId, startDate, endDate)
         }
     }
 
     Connections {
         target: controlnetApi
         onTemperaturesReceived:{
+            console.log("JSON: " + json)
             var temperaturesJSONObject = JSON.parse(json)
-            temperaturesJSONObject.forEach(parseTest)
             var slotNames = temperaturesJSONObject.map(getSlotNames)
             var distinctSlotNames = slotNames.filter(distinct)
               .forEach(setSeries)
@@ -28,9 +28,10 @@ ChartViewForm {
             var temperatures = temperaturesJSONObject.map(getTemperatures)
             chartView.axisY().max = temperatures.sort()[temperatures.length - 1]
             temperaturesJSONObject.forEach(setValues)
+
+
         }
     }
-
 
     function parseTest(item, index){
         var slotNames = []

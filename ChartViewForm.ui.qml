@@ -25,10 +25,9 @@ Item {
 
         ChartView {
             id: chartView
-            x: 162
-            y: 102
-            width: 778
-            height: 302
+            theme: ChartView.ChartThemeDark
+            width: 1120
+            height: 500
         }
 
         Button {
