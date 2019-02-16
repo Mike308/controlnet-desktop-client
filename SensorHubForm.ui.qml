@@ -7,6 +7,10 @@ Item {
     height: 720
     property alias temperatures: temperatures
     property alias moduleNameLabel: moduleNameLabel
+    property alias humidity: humidity
+    property alias temperatureChart: temperatureChart
+    property alias humidityChart: humidityChart
+
     Pane {
         width: parent.width
         height: parent.height
@@ -23,15 +27,34 @@ Item {
             id: temperatures
             x: -12
             y: 74
+            width: 486
+            height: 400
         }
 
+        Humidity {
+            id: humidity
+            x: 624
+            y: 74
+            width: 368
+            height: 316
+        }
 
+        Row {
+            x: 0
+            y: 447
+            spacing: 10
 
+            Button {
+                id: temperatureChart
+                text: qsTr("Temperature Chart")
+                highlighted: true
+            }
 
-
-
-
-
-
+            Button {
+                id: humidityChart
+                text: qsTr("Humidity chart")
+                highlighted: true
+            }
+        }
     }
 }
