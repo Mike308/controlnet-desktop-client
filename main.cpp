@@ -1,25 +1,24 @@
-#include <QGuiApplication>
+#include <QtWidgets/QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
 #include "resthandler.h"
 #include "controlnetapi.h"
-#include "viewmanager.h"
+#include "controller.h"
 
 int main(int argc, char *argv[])
 {
+    QApplication app(argc, argv);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     RestHandler resthandler;
     ControlnetApi controlnetApi;
-    ViewManager viewManager;
-    controlnetApi.getSensorHubByModuleId(1);
+    Controller controller;
     QQmlContext *context = engine.rootContext();
 
     context->setContextProperty("restHandler", &resthandler);
     context->setContextProperty("controlnetApi", &controlnetApi);
-    context->setContextProperty("viewManager", &viewManager);
+    context->setContextProperty("controller", &controller);
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
