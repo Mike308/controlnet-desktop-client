@@ -5,7 +5,11 @@ import QtCharts 2.3
 Item {
     width: 1120
     height: 720
+    property alias zoomOut: zoomOut
     property alias button: button
+    property alias zoomIn: zoomIn
+    property alias scrollLeft: scrollLeft
+    property alias scrollRight: scrollRight
     property alias startDateLabel: startDateLabel
     property alias chartView: chartView
     property alias xDateAxis: xDateAxis
@@ -25,17 +29,60 @@ Item {
 
         ChartView {
             id: chartView
-            theme: ChartView.ChartThemeDark
             width: 1120
             height: 500
+
+            Button {
+                id: button
+                x: 96
+                y: 562
+                width: 50
+                height: 50
+                text: qsTr("*")
+                highlighted: true
+                autoRepeat: true
+            }
         }
 
         Button {
-            id: button
-            x: 45
-            y: 546
-            text: qsTr("Button")
+            id: scrollRight
+            x: 158
+            y: 561
+            width: 50
+            height: 50
+            text: qsTr("---->")
             highlighted: true
+        }
+
+        Button {
+            id: scrollLeft
+            x: 34
+            y: 561
+            width: 50
+            height: 50
+            text: qsTr("<----")
+            highlighted: true
+        }
+
+        Button {
+            id: zoomIn
+            x: 95
+            y: 507
+            width: 50
+            height: 50
+            text: qsTr("+")
+            highlighted: true
+        }
+
+        Button {
+            id: zoomOut
+            x: 95
+            y: 615
+            width: 50
+            height: 50
+            text: qsTr("-")
+            highlighted: true
+            autoRepeat: true
         }
     }
 }

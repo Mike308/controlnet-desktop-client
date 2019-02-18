@@ -3,9 +3,24 @@ import QtQuick.Controls 2.5
 import QtCharts 2.3
 
 ChartViewForm {
-    button.onClicked: {
-
+    zoomOut.onClicked: {
+        chartView.zoomOut()
     }
+    button.onClicked: {
+        chartView.zoomReset()
+    }
+    zoomIn.onClicked: {
+        chartView.zoomIn()
+    }
+
+    scrollLeft.onClicked: {
+        chartView.scrollLeft(5)
+    }
+    scrollRight.onClicked: {
+        chartView.scrollRight(5)
+    }
+
+
 
     Connections {
         target: controller
@@ -22,7 +37,7 @@ ChartViewForm {
             var temperaturesJSONObject = JSON.parse(json)
             var slotNames = temperaturesJSONObject.map(getSlotNames)
             var distinctSlotNames = slotNames.filter(distinct)
-              .forEach(setSeries)
+            .forEach(setSeries)
             chartView.axisX().max = (new Date(temperaturesJSONObject[temperaturesJSONObject.length - 1].date))
             chartView.axisX().min = (new Date(temperaturesJSONObject[0].date))
             var temperatures = temperaturesJSONObject.map(getTemperatures)
@@ -36,7 +51,7 @@ ChartViewForm {
     function parseTest(item, index){
         var slotNames = []
         slotNames.push(item.slotName);
-     }
+    }
 
     function getSlotNames(item){
         return item.slotName
