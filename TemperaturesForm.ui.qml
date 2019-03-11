@@ -4,15 +4,16 @@ import QtQuick.Extras 1.4
 import QtQuick.Controls.Material 2.3
 
 Item {
-    width: 243
+    width: 486
     height: 400
     property alias temperatures: temperatures
+    property alias listView: listView
 
     Pane {
         id: pane
         x: 0
         y: 0
-        width: 243
+        width: 486
         height: 400
         wheelEnabled: false
 
@@ -25,9 +26,10 @@ Item {
         }
 
         ListView {
+            id: listView
             x: 0
             y: 39
-            width: 243
+            width: 474
             height: 340
             orientation: ListView.Horizontal
             clip: true
@@ -38,10 +40,6 @@ Item {
                 ListElement {
                     temperature: 22
                     slotName: "233333333"
-                }
-                ListElement {
-                    temperature: 24
-                    slotName: "233A33333"
                 }
             }
 
