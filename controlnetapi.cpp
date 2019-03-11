@@ -25,12 +25,22 @@ void ControlnetApi::getHumidityMeasurementsByModuleIdAndDate(int moduleId, QStri
     restHandler->getRequest(SRV_API + "/humidity/module-id/"+QString::number(moduleId)+"/start-date/"+startDate+"/end-date/"+endDate);
 }
 
+void ControlnetApi::getLightIntensityByModuleIdAndDate(int moduleId, QString startDate, QString endDate){
+    restHandler->getRequest(SRV_API + "/light-intensity/module-id/" + QString::number(moduleId) + "/start-date/" + startDate + "/end-date/" + endDate);
+}
+
 void ControlnetApi::getSensorsOfModule(int moduleId){
     restHandler->getRequest(SRV_API + "/sensor/module-id/"+QString(moduleId));
 }
 
 void ControlnetApi::stopRequesting(){
     timer->stop();
+}
+
+void ControlnetApi::clearAll(){
+   qDebug () << "Deleting objects..";
+   delete(timer);
+   delete(restHandler);
 }
 
 void ControlnetApi::onReceivedJSON(QString json, QString path){
@@ -45,6 +55,8 @@ void ControlnetApi::onReceivedJSON(QString json, QString path){
         emit temperaturesReceived(json);
     }else if (!QString(items[1]).compare("humidity") && !QString(items[2]).compare("module-id")){
         emit humidityMeasurementsReceived(json);
+    }else if (!QString(items[1]).compare("light-intensity") && !QString(items[2]).compare("module-id")){
+        emit lightIntensityReceived(json);
     }
 }
 

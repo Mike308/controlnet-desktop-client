@@ -24,14 +24,17 @@ signals:
     void humidityMeasurementsReceived(QString json);
     void modulesReceived(QString json);
     void sensorsReceived(QString json);
+    void lightIntensityReceived(QString json);
 public slots:
     void getTemperaturesBySensorTypeAndDate(QString sensorType, QString startDate,  QString endDate);
     void getTemperaturesByModuleIdAndDate(int moduleId, QString startDate, QString endDate);
     void getHumidityMeasurementsByModuleIdAndDate(int moduleId, QString startDate, QString endDate);
+    void getLightIntensityByModuleIdAndDate(int moduleId, QString startDate, QString endDate);
     void startHubReqeusting(int moduleId);
     void getAllModules();
     void getSensorsOfModule(int moduleId);
     void stopRequesting();
+    void clearAll();
 private slots:
     void onReceivedJSON(QString json, QString path);
     void performHubRequest();
