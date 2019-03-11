@@ -76,21 +76,24 @@ ApplicationWindow {
                             stackView.replace("qrc:/ChartView.qml", StackView.Immediate)
                         }else if (measurementTypeReceived == 1){
                             stackView.replace("qrc:/HumidityChartView.qml", StackView.Immediate)
+                        }else if (measurementTypeReceived == 2){
+                            stackView.replace("qrc:/LxChartView.qml", StackView.Immediate)
                         }
                         calendarPopup.close()
                         controller.passDataToChartView(moduleIdReceived, startDateField.text, endDateField.text, -1)
                     }
                 }
-
             }
-
         }
-
     }
 
     Component.onCompleted: {
         controlnetApi.getAllModules()
         listView.currentIndex = -1
+    }
+
+    Component.onDestruction: {
+        //controlnetApi.clearAll();
     }
 
     Connections {
