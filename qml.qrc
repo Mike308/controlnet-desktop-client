@@ -7,5 +7,24 @@
         <file>NavBarModel.qml</file>
         <file>CircularProgressBar.qml</file>
         <file>VerticalIndicator.qml</file>
+        <file>HumidityModule.qml</file>
+        <file>HumidityModuleForm.ui.qml</file>
+        <file>WaterProgress.qml</file>
+        <file>Linear.qml</file>
+        <file>Knob.qml</file>
+        <file>ChartView.qml</file>
+        <file>ChartViewForm.ui.qml</file>
+        <file>SensorHub.qml</file>
+        <file>SensorHubForm.ui.qml</file>
+        <file>Temperatures.qml</file>
+        <file>TemperaturesForm.ui.qml</file>
+        <file>Humidity.qml</file>
+        <file>HumidityForm.ui.qml</file>
+        <file>HumidityChartView.qml</file>
+        <file>HumidityChartViewForm.ui.qml</file>
+        <file>LightIntensity.qml</file>
+        <file>LightIntensityForm.ui.qml</file>
+        <file>LxChartView.qml</file>
+        <file>LxChartViewForm.ui.qml</file>
     </qresource>
 </RCC>
