@@ -2,11 +2,16 @@ import QtQuick 2.4
 
 SensorHubForm {
     property real receivedModuleId: -1
+    lxChart.onClicked: {
+       controller.passDataToChartView(receivedModuleId, "", "", 2)
+       controlnetApi.stopRequesting()
+        calendarPopup.open()
+    }
 
     temperatureChart.onClicked: {
-       controller.passDataToChartView(receivedModuleId, "", "", 0)
-       controlnetApi.stopRequesting()
-       calendarPopup.open()
+        controller.passDataToChartView(receivedModuleId, "", "", 0)
+        controlnetApi.stopRequesting()
+        calendarPopup.open()
     }
 
     humidityChart.onClicked: {
@@ -29,21 +34,28 @@ SensorHubForm {
         onHubReceived: {
             var jsonObject = JSON.parse(json)
             jsonObject.temperatures.forEach(parseTemperature)
-            if(jsonObject.humidityMeasurements.length > 0){
-                jsonObject.humidityMeasurements.forEach(parseHumidityMeasurements)
-            }else{
-                humidity.visible = false
-                humidityChart.visible = false
-            }
+            jsonObject.humidityMeasurements.forEach(parseHumidityMeasurements)
+            jsonObject.lightIntensityMeasurements.forEach(parseLightIntensityMeasurements)
+            humidity.visible = jsonObject.humidityMeasurements.length > 0
+            humidityChart.visible = jsonObject.humidityMeasurements.length > 0
+            temperatureChart.visible = jsonObject.temperatures.length > 0
+            temperatures.visible = jsonObject.temperatures.length > 0
+            lightIntensity.visible = jsonObject.lightIntensityMeasurements.length > 0
+            jsonObject.humidityMeasurements.forEach(parseHumidityMeasurements)
+            jsonObject.lightIntensityMeasurements.forEach(parseLightIntensityMeasurements)
         }
     }
 
     function parseTemperature(item, index){
-       temperatures.temperatures.set(index, item)
+        temperatures.temperatures.set(index, item)
     }
 
     function parseHumidityMeasurements(item, index){
         humidity.humiditySensors.set(index, item)
+    }
+
+    function parseLightIntensityMeasurements(item, index){
+        lightIntensity.setValue(item.lightIntensity)
     }
 
     function getSensorType(item){
@@ -61,6 +73,8 @@ SensorHubForm {
             sensorTypeModel.append('Humidity Sensor')
         }
     }
+
+
 
 
 
