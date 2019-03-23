@@ -11,7 +11,10 @@ class RestHandler : public QObject
     Q_OBJECT
 public:
     explicit RestHandler(QObject *parent = nullptr);
-    void getRequest(QString url);
+    void getRequest(QString urlStr);
+    void postRequest(QString urlStr, QJsonObject json);
+    void clearAll();
+
 
 private:
      QNetworkAccessManager *restClient;
