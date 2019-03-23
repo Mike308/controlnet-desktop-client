@@ -56,6 +56,7 @@ SensorHubForm {
 
     function parseLightIntensityMeasurements(item, index){
         lightIntensity.setValue(item.lightIntensity)
+        lightIntensity.sensorId = item.sensorId
     }
 
     function getSensorType(item){
