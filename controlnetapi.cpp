@@ -29,6 +29,15 @@ void ControlnetApi::getLightIntensityByModuleIdAndDate(int moduleId, QString sta
     restHandler->getRequest(SRV_API + "/light-intensity/module-id/" + QString::number(moduleId) + "/start-date/" + startDate + "/end-date/" + endDate);
 }
 
+void ControlnetApi::setSlotName(int sensorId, QString name){
+    timer->stop();
+    QJsonObject qJsonObject;
+    qJsonObject.insert("sensorId",sensorId);
+    qJsonObject.insert("newName", name);
+    restHandler->postRequest("http://localhost:8080/sensor/set-slot-name", qJsonObject);
+    timer->start(10000);
+}
+
 void ControlnetApi::getSensorsOfModule(int moduleId){
     restHandler->getRequest(SRV_API + "/sensor/module-id/"+QString(moduleId));
 }
@@ -38,28 +47,29 @@ void ControlnetApi::stopRequesting(){
 }
 
 void ControlnetApi::clearAll(){
-   qDebug () << "Deleting objects..";
-   delete(timer);
-   delete(restHandler);
+    qDebug () << "Deleting objects..";
+    delete(timer);
+    delete(restHandler);
 }
 
 void ControlnetApi::onReceivedJSON(QString json, QString path){
     QStringList items = path.split("/");
-    if (!QString(items[1]).compare("hub")){
-        emit hubReceived(json);
-    }else if (!QString(items[1]).compare("module") || !QString(items[2]).compare("all")){
-        emit modulesReceived(json);
-    }else if (!QString(items[1]).compare("sensor") && !QString(items[2]).compare("module-id")){
-        emit sensorsReceived(json);
-    }else if (!QString(items[1]).compare("temperatures") && !QString(items[2]).compare("module-id")){
-        emit temperaturesReceived(json);
-    }else if (!QString(items[1]).compare("humidity") && !QString(items[2]).compare("module-id")){
-        emit humidityMeasurementsReceived(json);
-    }else if (!QString(items[1]).compare("light-intensity") && !QString(items[2]).compare("module-id")){
-        emit lightIntensityReceived(json);
+    if (items.length() > 1){
+        if (!QString(items[1]).compare("hub")){
+            emit hubReceived(json);
+        }else if (!QString(items[1]).compare("module") || !QString(items[2]).compare("all")){
+            emit modulesReceived(json);
+        }else if (!QString(items[1]).compare("sensor") && !QString(items[2]).compare("module-id")){
+            emit sensorsReceived(json);
+        }else if (!QString(items[1]).compare("temperatures") && !QString(items[2]).compare("module-id")){
+            emit temperaturesReceived(json);
+        }else if (!QString(items[1]).compare("humidity") && !QString(items[2]).compare("module-id")){
+            emit humidityMeasurementsReceived(json);
+        }else if (!QString(items[1]).compare("light-intensity") && !QString(items[2]).compare("module-id")){
+            emit lightIntensityReceived(json);
+        }
     }
 }
-
 
 void ControlnetApi::startHubReqeusting(int moduleId){
     this->getSensorHubByModuleId(moduleId);
@@ -68,7 +78,7 @@ void ControlnetApi::startHubReqeusting(int moduleId){
 }
 
 void ControlnetApi::getAllModules(){
-   restHandler->getRequest(SRV_API + "/modules/all");
+    restHandler->getRequest(SRV_API + "/modules/all");
 }
 
 void ControlnetApi::performHubRequest(){

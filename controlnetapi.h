@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QJsonObject>
 #include "resthandler.h"
 
 class ControlnetApi : public QObject
@@ -30,6 +31,7 @@ public slots:
     void getTemperaturesByModuleIdAndDate(int moduleId, QString startDate, QString endDate);
     void getHumidityMeasurementsByModuleIdAndDate(int moduleId, QString startDate, QString endDate);
     void getLightIntensityByModuleIdAndDate(int moduleId, QString startDate, QString endDate);
+    void setSlotName(int sensorId, QString name);
     void startHubReqeusting(int moduleId);
     void getAllModules();
     void getSensorsOfModule(int moduleId);
